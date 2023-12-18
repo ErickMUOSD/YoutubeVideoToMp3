@@ -3,11 +3,14 @@ import asyncio
 import re
 
 REGEX = "^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
-FILE = "clipboard.txt"
+FILE_DESTINATION = "clipboard.txt"
 # Exemple function.
-async def your_function():
+async def save_valid_url(url):
 
     print("Running...")
+    with open(FILE_DESTINATION, 'a') as outfile:
+        outfile.write(f"{url}\n")
+        print("Done")
 
 
 async def wait4update(value):
@@ -22,7 +25,7 @@ async def main():
         await update
         value = clipboard.paste() # Change the value.
         if re.match(REGEX,value):
-            asyncio.create_task(your_function()) #Start your function.
+            asyncio.create_task(save_valid_url(value)) #Start your function.
         else:
             print("Not a youtube link")
 
