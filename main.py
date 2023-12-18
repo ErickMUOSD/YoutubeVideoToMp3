@@ -25,12 +25,9 @@ async def main():
         update = asyncio.create_task(wait4update(value))
         await update
         value = clipboard.paste() # Change the value.
-        if re.match(REGEX,value):
-            if value in URL_IN_MEMORY:
-                print('Already saved')
-                continue
+        if re.match(REGEX,value) and value not in URL_IN_MEMORY:
             URL_IN_MEMORY.append(value)
             asyncio.create_task(save_valid_url(value)) #Start your function.
         else:
-            print("Not a youtube link")
+            print("Not a youtube link or already in memory.")
 asyncio.run(main())
