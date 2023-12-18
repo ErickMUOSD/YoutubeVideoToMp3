@@ -1,9 +1,10 @@
+from os import environ
 import clipboard
 import asyncio
 import re
 
 REGEX = "^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
-FILE_DESTINATION = "clipboard.txt"
+FILE_DESTINATION = environ.get("FILE_DESTINATION", "urls.txt")
 URL_IN_MEMORY = []
 # Exemple function.
 async def save_valid_url(url):

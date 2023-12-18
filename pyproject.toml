@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 clipboard = "^0.0.4"
+yt-dlp = "^2023.11.16"
+python-dotenv = "^1.0.0"
+pydub = "^0.25.1"
 
 
 [build-system]
