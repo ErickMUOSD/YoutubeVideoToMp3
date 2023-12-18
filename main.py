@@ -4,6 +4,7 @@ import re
 
 REGEX = "^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 FILE_DESTINATION = "clipboard.txt"
+URL_IN_MEMORY = []
 # Exemple function.
 async def save_valid_url(url):
 
@@ -25,8 +26,11 @@ async def main():
         await update
         value = clipboard.paste() # Change the value.
         if re.match(REGEX,value):
+            if value in URL_IN_MEMORY:
+                print('Already saved')
+                continue
+            URL_IN_MEMORY.append(value)
             asyncio.create_task(save_valid_url(value)) #Start your function.
         else:
             print("Not a youtube link")
-
 asyncio.run(main())
